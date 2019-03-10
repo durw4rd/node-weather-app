@@ -16,8 +16,9 @@ const forecast = (latitude, longitude, location, callback) => {
             const cloudCover = body.currently.cloudCover
             const weeklyOutlook = body.daily.summary.toLowerCase()
             const dailySummary = body.daily.data[0].summary
-            //const currentWeather = body.currently.summary
-    
+            const sunriseStamp = body.daily.data[0].sunriseTime
+            const sunsetStamp = body.daily.data[0].sunsetTime
+            
             callback(undefined, [
                 `${dailySummary} Looking into the crystal ball, we see ${weeklyOutlook}`,
                 `It is ${temp}°C. Wind speed is ${windSpeed}m/s and there is a ${precip * 100}% chance of rain. If you look up, you should see the clouds covering roughly ${cloudCover * 100}% of the sky.`
