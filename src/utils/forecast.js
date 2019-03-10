@@ -6,15 +6,22 @@ const forecast = (latitude, longitude, location, callback) => {
 
     request({ url, json: true }, (error, { body }) => {
         if (error) {
-            callback(chalk.red.bold.inverse('Unable to access the weather service!'), undefined)
+            callback('Unable to access the weather service!', undefined)
         } else if (body.error) {
-            callback(chalk.red.inverse(body.error), undefined)
+            callback(body.error, undefined)
         } else {
             const temp = body.currently.temperature
             const precip = body.currently.precipProbability
-            const summary = body.currently.summary
+            const windSpeed = body.currently.windSpeed
+            const cloudCover = body.currently.cloudCover
+            const weeklyOutlook = body.daily.summary.toLowerCase()
+            const dailySummary = body.daily.data[0].summary
+            //const currentWeather = body.currently.summary
     
-            callback(undefined, `${summary}. It is currently ${temp}°C. There is a ${precip * 100}% chance of rain.`)
+            callback(undefined, [
+                `${dailySummary} Looking into the crystal ball, we see ${weeklyOutlook}`,
+                `It is ${temp}°C. Wind speed is ${windSpeed}m/s and there is a ${precip * 100}% chance of rain. If you look up, you should see the clouds covering roughly ${cloudCover * 100}% of the sky.`
+            ])
         }
     })
 }
