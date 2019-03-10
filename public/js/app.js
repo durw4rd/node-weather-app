@@ -1,5 +1,3 @@
-console.log('Script is loaded!')
-
 const weatherForm = document.querySelector('form')
 const searchTerm = document.querySelector('input')
 const msgOne = document.querySelector('#msg-1')
@@ -11,7 +9,6 @@ weatherForm.addEventListener('submit', (event) => {
     const location = searchTerm.value
     
     msgOne.textContent = 'Waiting for the data...'
-    //debugger
     msgTwo.textContent = ''
 
     fetch(`http://localhost:3000/weather?address=${location}`).then((response) => {
